@@ -2,14 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
 
 import FetchMovieById from "../../services/FetchMovieById";
-import "./Details.css";
 import { useState } from "react";
-// import { AuthContext } from "../../contexts/AuthContext";
 import type { Review } from "../../models/Review";
 import type { User } from "../../models/User";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../redux/authSlice";
 import { type RootState } from "../../redux/store";
+
+const btnClass =
+  "h-10 w-[100px] cursor-pointer rounded-lg bg-[rgb(0,119,255)] text-white hover:bg-[rgb(0,119,255)]/80 hover:text-white/80";
 
 function Details() {
   const { id } = useParams<{ id: string }>();
@@ -18,9 +19,6 @@ function Details() {
   const dispatch = useDispatch();
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
 
-  // const authContext = useContext(AuthContext);
-
-  // const currentUser = authContext?.currentUser;
   const existingReview = currentUser?.movieReviews?.find(
     (review: Review) => review.movieId === id,
   );
@@ -38,9 +36,9 @@ function Details() {
     retry: false,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <p className="text-white">Loading...</p>;
 
-  if (isError) return <p>Error loading movie's details</p>;
+  if (isError) return <p className="text-white">Error loading movie's details</p>;
 
   function handleAddReview() {
     if (!currentUser) {
@@ -85,14 +83,14 @@ function Details() {
 
   return (
     <>
-      <div className="review">
-        <div className="review-movie">
+      <div className="flex flex-row justify-around">
+        <div>
           <h1>{movie?.Title}</h1>
           <img src={movie?.Poster} alt={movie?.Title} />
           <p>Year: {movie?.Year}</p>
           <p>Type: {movie?.Type}</p>
         </div>
-        <div className="review-textbox">
+        <div className="flex flex-col">
           <label htmlFor="review">Review</label>
           {!currentUser ? (
             <span>Please login to write review</span>
@@ -101,23 +99,25 @@ function Details() {
           ) : (
             <>
               <textarea
+                id="review"
+                className="h-[400px] w-full"
                 name="review"
                 placeholder="write review here..."
                 value={reviewText}
                 onChange={(e) => setReviewText(e.target.value)}
-              ></textarea>
-              <button type="button" className="btn" onClick={handleAddReview}>
+              />
+              <button type="button" className={btnClass} onClick={handleAddReview}>
                 Add Review
               </button>
-              <div className="rating-container">
-                <span className="rating-label">Đánh giá của bạn:</span>
+              <div>
+                <span>Đánh giá của bạn:</span>
               </div>
             </>
           )}
         </div>
       </div>
       <button
-        className="btn"
+        className={btnClass}
         type="button"
         onClick={() => {
           navigate(-1);

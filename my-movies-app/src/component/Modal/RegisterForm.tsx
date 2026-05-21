@@ -3,13 +3,16 @@ import z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import "./Modal.css";
 import type { User } from "../../models/User";
-// import { AuthContext } from "../../contexts/AuthContext";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
 
 const EmailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+const inputClass = "rounded border border-gray-300 px-2 py-1";
+const inputInvalidClass =
+  "rounded border border-red-500 px-2 py-1 outline-none";
+const errorMessageClass = "min-h-4 text-xs leading-4 text-red-500";
 
 type ModalProps = {
   isOpen: boolean;
@@ -136,42 +139,58 @@ function RegisterForm({ isOpen, onClose, isSignIn }: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal">
-      <div className="form-control">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="rounded-lg bg-white p-5">
         {isSignIn ? (
           <form onSubmit={handleLoginSubmit(onLoginSubmit)}>
-            <h2>Sign-in Form</h2>
-            <div className="form-login">
-              <label htmlFor="username">Username</label>
+            <h2 className="font-bold text-2xl mb-8">Sign-in Form</h2>
+            <div className="flex flex-col gap-2">
+              <label className="text-black" htmlFor="username">
+                Username
+              </label>
               <input
-                className={`form-input ${errorsLogin.username && "invalid"}`}
+                className={
+                  errorsLogin.username ? inputInvalidClass : inputClass
+                }
                 {...registerLogin("username")}
                 name="username"
                 type="text"
                 placeholder="Insert username..."
               />
-              <span className="form-message">
-                {errorsLogin.username && (
-                  <span>{errorsLogin.username.message}</span>
-                )}
-              </span>
-              <label htmlFor="password">Password</label>
+              {errorsLogin ? (
+                <span className={errorMessageClass}>
+                  {errorsLogin.username && (
+                    <span>{errorsLogin.username.message}</span>
+                  )}
+                </span>
+              ) : (
+                <span>Test wrong</span>
+              )}
+
+              <label className="text-black" htmlFor="password">
+                Password
+              </label>
               <input
-                className={`form-input ${errorsLogin.password && "invalid"}`}
+                className={
+                  errorsLogin.password ? inputInvalidClass : inputClass
+                }
                 {...registerLogin("password")}
                 name="password"
                 type="password"
                 placeholder="Insert password..."
               />
-              <span className="form-message">
+              <span className={errorMessageClass}>
                 {errorsLogin.password && (
                   <span>{errorsLogin.password.message}</span>
                 )}
-              </span>{" "}
+              </span>
             </div>
-            <div className="form-button">
-              <button type="submit">Submit</button>
+            <div className="mt-4 flex gap-2">
+              <button className="cursor-pointer" type="submit">
+                Submit
+              </button>
               <button
+                className="cursor-pointer"
                 type="button"
                 onClick={() => {
                   onClose();
@@ -185,63 +204,80 @@ function RegisterForm({ isOpen, onClose, isSignIn }: ModalProps) {
         ) : (
           <form onSubmit={handleSignupSubmit(onSignupSubmit)}>
             <h2>Sign-up Form</h2>
-            <div className="form-login">
-              <label htmlFor="username">Username</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-black" htmlFor="username">
+                Username
+              </label>
               <input
-                className={`form-input ${errorsSignup.username && "invalid"}`}
+                className={
+                  errorsSignup.username ? inputInvalidClass : inputClass
+                }
                 {...registerSignup("username")}
                 name="username"
                 type="text"
                 placeholder="Insert username..."
               />
-              <span className="form-message">
+              <span className={errorMessageClass}>
                 {errorsSignup.username && (
                   <span>{errorsSignup.username.message}</span>
                 )}
-              </span>{" "}
-              <label htmlFor="email">Email</label>
+              </span>
+              <label className="text-black" htmlFor="email">
+                Email
+              </label>
               <input
-                className={`form-input ${errorsSignup.email && "invalid"}`}
+                className={errorsSignup.email ? inputInvalidClass : inputClass}
                 {...registerSignup("email")}
                 name="email"
                 type="email"
                 placeholder="Insert email..."
               />
-              <span className="form-message">
+              <span className={errorMessageClass}>
                 {errorsSignup.email && (
                   <span>{errorsSignup.email.message}</span>
                 )}
-              </span>{" "}
-              <label htmlFor="password">Password</label>
+              </span>
+              <label className="text-black" htmlFor="password">
+                Password
+              </label>
               <input
-                className={`form-input ${errorsSignup.password && "invalid"}`}
+                className={
+                  errorsSignup.password ? inputInvalidClass : inputClass
+                }
                 {...registerSignup("password")}
                 name="password"
                 type="password"
                 placeholder="Insert password..."
               />
-              <span className="form-message">
+              <span className={errorMessageClass}>
                 {errorsSignup.password && (
                   <span>{errorsSignup.password.message}</span>
                 )}
-              </span>{" "}
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              </span>
+              <label className="text-black" htmlFor="confirmPassword">
+                Confirm Password
+              </label>
               <input
-                className={`form-input ${errorsSignup.confirmPassword && "invalid"}`}
+                className={
+                  errorsSignup.confirmPassword ? inputInvalidClass : inputClass
+                }
                 {...registerSignup("confirmPassword")}
                 name="confirmPassword"
                 type="password"
                 placeholder="Insert confirm password..."
               />
-              <span className="form-message">
+              <span className={errorMessageClass}>
                 {errorsSignup.confirmPassword && (
                   <span>{errorsSignup.confirmPassword.message}</span>
                 )}
               </span>
             </div>
-            <div className="form-button">
-              <button type="submit">Submit</button>
+            <div className="mt-4 flex gap-2">
+              <button className="cursor-pointer" type="submit">
+                Submit
+              </button>
               <button
+                className="cursor-pointer"
                 type="button"
                 onClick={() => {
                   onClose();

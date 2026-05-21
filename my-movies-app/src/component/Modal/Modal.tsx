@@ -1,8 +1,12 @@
 import { createPortal } from "react-dom";
 import React, { useState } from "react";
 
-import "./Modal.css";
 import type { User } from "../../models/User";
+
+const inputClass = "rounded border border-gray-300 px-2 py-1";
+const inputInvalidClass =
+  "rounded border border-red-500 px-2 py-1 outline-none";
+const errorMessageClass = "text-xs leading-4 text-red-500";
 // import { AuthContext } from "../../contexts/AuthContext";
 import { useDispatch } from "react-redux";
 import { login } from "../../redux/authSlice";
@@ -178,15 +182,17 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
   if (!isOpen) return null;
 
   return createPortal(
-    <div className="modal">
-      <div className="form-control">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+      <div className="rounded-lg bg-white p-5">
         {isSignIn ? (
           <form onSubmit={handleSubmit}>
-            <h2>Sign-in Form</h2>
-            <div className="form-login">
-              <label htmlFor="username">Username</label>
+            <h2 className="text-red-600">Sign-in Form</h2>
+            <div className="flex flex-col gap-2">
+              <label className="text-black" htmlFor="username">
+                Username
+              </label>
               <input
-                className={`form-input ${errors.username ? "invalid" : ""}`}
+                className={errors.username ? inputInvalidClass : inputClass}
                 name="username"
                 type="text"
                 placeholder="Insert username..."
@@ -195,12 +201,14 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.username && (
-                <span className="form-message">{errors.username}</span>
+                <span className={errorMessageClass}>{errors.username}</span>
               )}
 
-              <label htmlFor="password">Password</label>
+              <label className="text-black" htmlFor="password">
+                Password
+              </label>
               <input
-                className={`form-input ${errors.password ? "invalid" : ""}`}
+                className={errors.password ? inputInvalidClass : inputClass}
                 name="password"
                 type="password"
                 placeholder="Insert password..."
@@ -209,12 +217,15 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.password && (
-                <span className="form-message">{errors.password}</span>
+                <span className={errorMessageClass}>{errors.password}</span>
               )}
             </div>
-            <div className="form-button">
-              <button type="submit">Submit</button>
+            <div className="mt-4 flex gap-2">
+              <button className="cursor-pointer" type="submit">
+                Submit
+              </button>
               <button
+                className="cursor-pointer"
                 type="button"
                 onClick={() => {
                   onClose();
@@ -228,10 +239,12 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
         ) : (
           <form onSubmit={handleSubmit}>
             <h2>Sign-up Form</h2>
-            <div className="form-login">
-              <label htmlFor="username">Username</label>
+            <div className="flex flex-col gap-2">
+              <label className="text-black" htmlFor="username">
+                Username
+              </label>
               <input
-                className={`form-input ${errors.username ? "invalid" : ""}`}
+                className={errors.username ? inputInvalidClass : inputClass}
                 name="username"
                 type="text"
                 placeholder="Insert username..."
@@ -240,11 +253,13 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.username && (
-                <span className="form-message">{errors.username}</span>
+                <span className={errorMessageClass}>{errors.username}</span>
               )}
-              <label htmlFor="email">Email</label>
+              <label className="text-black" htmlFor="email">
+                Email
+              </label>
               <input
-                className={`form-input ${errors.email ? "invalid" : ""}`}
+                className={errors.email ? inputInvalidClass : inputClass}
                 name="email"
                 type="email"
                 placeholder="Insert email..."
@@ -253,11 +268,13 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.email && (
-                <span className="form-message">{errors.email}</span>
+                <span className={errorMessageClass}>{errors.email}</span>
               )}
-              <label htmlFor="password">Password</label>
+              <label className="text-black" htmlFor="password">
+                Password
+              </label>
               <input
-                className={`form-input ${errors.password ? "invalid" : ""}`}
+                className={errors.password ? inputInvalidClass : inputClass}
                 name="password"
                 type="password"
                 placeholder="Insert password..."
@@ -266,11 +283,15 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.password && (
-                <span className="form-message">{errors.password}</span>
+                <span className={errorMessageClass}>{errors.password}</span>
               )}
-              <label htmlFor="confirmPassword">Confirm Password</label>
+              <label className="text-black" htmlFor="confirmPassword">
+                Confirm Password
+              </label>
               <input
-                className={`form-input ${errors.confirmPassword ? "invalid" : ""}`}
+                className={
+                  errors.confirmPassword ? inputInvalidClass : inputClass
+                }
                 name="confirmPassword"
                 type="password"
                 placeholder="Insert confirm password..."
@@ -279,12 +300,17 @@ function Modal({ isOpen, onClose, isSignIn }: ModalProps) {
                 onChange={handleChange}
               />
               {errors.confirmPassword && (
-                <span className="form-message">{errors.confirmPassword}</span>
+                <span className={errorMessageClass}>
+                  {errors.confirmPassword}
+                </span>
               )}
             </div>
-            <div className="form-button">
-              <button type="submit">Submit</button>
+            <div className="mt-4 flex gap-2">
+              <button className="cursor-pointer" type="submit">
+                Submit
+              </button>
               <button
+                className="cursor-pointer"
                 type="button"
                 onClick={() => {
                   onClose();

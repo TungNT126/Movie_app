@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
 import { logout } from "../../redux/authSlice";
 import RegisterForm from "../Modal/RegisterForm";
-// import { AuthContext } from "../../contexts/AuthContext";
+
+const btnClass =
+  "h-10 w-[100px] cursor-pointer rounded-lg bg-[rgb(0,119,255)] text-white hover:bg-[rgb(0,119,255)]/80 hover:text-white/80";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,18 +15,25 @@ function Header() {
 
   const dispatch = useDispatch();
 
-  // const authContext = useContext(AuthContext);
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
 
   return (
-    <nav className="head">
-      <h1 className="head-title">Movies Center</h1>
+    <nav className="mb-8 flex w-full justify-between pt-4">
+      <h1 className="w-fit text-5xl tracking-[0.9px] text-movie-accent max-[400px]:text-4xl">
+        Movies Center
+      </h1>
 
-      <div className="head-navigate">
-        <Link className="head-navigate_item" to="/">
+      <div className="flex w-[40%] justify-around items-center">
+        <Link
+          className="text-movie-accent no-underline hover:text-movie-accent/50"
+          to="/"
+        >
           Home
         </Link>
-        <Link className="head-navigate_item" to="/about">
+        <Link
+          className="text-movie-accent no-underline hover:text-movie-accent/50"
+          to="/about"
+        >
           About
         </Link>
       </div>
@@ -32,10 +41,10 @@ function Header() {
       {currentUser ? (
         <>
           <div>{currentUser.username}</div>
-          <div className="head-btn">
+          <div>
             <button
               type="button"
-              className="btn"
+              className={btnClass}
               onClick={() => dispatch(logout())}
             >
               Logout
@@ -43,9 +52,9 @@ function Header() {
           </div>
         </>
       ) : (
-        <div className="head-btn">
+        <div className="flex">
           <button
-            className="head-login btn"
+            className={`mx-2 my-auto ${btnClass}`}
             type="button"
             onClick={() => {
               setIsOpen(true);
@@ -55,7 +64,7 @@ function Header() {
             Sign in
           </button>
           <button
-            className="head-login btn"
+            className={`mx-2 my-auto ${btnClass}`}
             type="button"
             onClick={() => {
               setIsOpen(true);
