@@ -86,10 +86,10 @@ function Details() {
     <>
       <div className="flex flex-row justify-around">
         <div>
-          <h1>{movie?.title}</h1>
-          <img src={movie?.poster_url} alt={movie?.title} />
-          <p>Year: {movie?.year}</p>
-          <p>Type: {movie?.type}</p>
+          <h1>{movie?.Title}</h1>
+          <img src={movie?.Poster} alt={movie?.Title} />
+          <p>Year: {movie?.Year}</p>
+          <p>Type: {movie?.Type}</p>
         </div>
         <div className="flex flex-col">
           <label htmlFor="review">Review</label>

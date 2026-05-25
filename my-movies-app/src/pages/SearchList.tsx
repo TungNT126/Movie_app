@@ -75,7 +75,7 @@ function SearchList() {
         {!isLoading && movies.length > 0 ? (
           <div className="mt-12 flex w-full flex-wrap items-center justify-center max-[400px]:mt-8">
             {movies.map((movie) => (
-              <div key={movie.imdb_id}>
+              <div key={movie.imdbID}>
                 <MovieCard movie={movie} />
               </div>
             ))}
