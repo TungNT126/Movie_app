@@ -2,8 +2,13 @@ import { useSelector } from "react-redux";
 import { type RootState } from "../../redux/store";
 import MovieCard from "../../component/MovieCard/MovieCard";
 import { usePopularMovieList } from "../../services/api/movie";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 function HomePage() {
+  const [searchParams] = useSearchParams();
+  const page = Number(searchParams.get("page")) || 1;
+  const navigate = useNavigate();
+
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
   const { data: movies = [], isLoading, isError } = usePopularMovieList();
 
@@ -48,6 +53,16 @@ function HomePage() {
             )}
           </div>
         )}
+        <div>
+          {page !== 1 && (
+            <button
+              type="button"
+              onClick={() => navigate(`/popular?page=${page - 1}`)}
+            >
+              Back
+            </button>
+          )}
+        </div>
       </section>
     </div>
   );

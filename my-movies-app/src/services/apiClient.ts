@@ -17,4 +17,5 @@ export async function apiClient<T>(endpoint: string, options?: RequestInit): Pro
     }
 
     return res.json();
+
 }

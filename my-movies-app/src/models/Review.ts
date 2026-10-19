@@ -1,5 +1,5 @@
 export type Review = {
   id: string | undefined;
-  comment: string;
+  content: string;
   createdAt: number;
 };

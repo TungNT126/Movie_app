@@ -3,5 +3,10 @@ import { apiClient } from "./apiClient";
 
 export async function FetchPopularMovie(): Promise<Movie[]> {
   const data = await apiClient<{ results: Movie[] }>("/movie/popular");
+  
   return data.results ?? [];
+}
+
+export async function FetchMovieById(id: string): Promise<Movie> {
+  return apiClient<Movie>(`/movie/${id}`);
 }
