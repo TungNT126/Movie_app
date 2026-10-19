@@ -12,7 +12,7 @@ import { type RootState } from "../../redux/store";
 const btnClass =
   "h-10 w-[100px] cursor-pointer rounded-lg bg-[rgb(0,119,255)] text-white hover:bg-[rgb(0,119,255)]/80 hover:text-white/80";
 
-function Details() {
+function MovieDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
@@ -134,4 +134,4 @@ function Details() {
   );
 }
 
-export default Details;
+export default MovieDetails;

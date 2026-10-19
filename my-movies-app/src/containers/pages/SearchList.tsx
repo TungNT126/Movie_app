@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
-import FetchMovies from "../services/FetchMovies";
-import MovieCard from "../component/MovieCard/MovieCard";
+import MovieCard from "../../component/MovieCard/MovieCard";
+import { usePopularMovieList } from "../../services/api/movie";
 
 const searchBarClass =
   "my-16 mb-8 flex w-full items-center justify-center gap-2 rounded-[3rem] bg-[#1f2123] px-7 py-6 shadow-[5px_5px_7px_#1c1d1f,-5px_-5px_7px_#222527] max-[600px]:px-7 max-[600px]:py-4";
@@ -27,11 +26,7 @@ function SearchList() {
     setSearchValue(value || "");
   }
 
-  const { data: movies = [], isLoading } = useQuery({
-    queryKey: ["movies", value, page],
-    queryFn: () => FetchMovies(value, page),
-    enabled: !!value,
-  });
+  const { data: movies = [], isLoading } = usePopularMovieList();
 
   function handleSearch() {
     if (searchValue.trim() !== "") {
@@ -75,14 +70,14 @@ function SearchList() {
         {!isLoading && movies.length > 0 ? (
           <div className="mt-12 flex w-full flex-wrap items-center justify-center max-[400px]:mt-8">
             {movies.map((movie) => (
-              <div key={movie.imdbID}>
+              <div key={movie.id}>
                 <MovieCard movie={movie} />
               </div>
             ))}
           </div>
         ) : (
           <div className="mt-12 flex w-full items-center justify-center">
-            <h2 className="font-raleway text-xl text-movie-accent">
+            <h2 className="font-raleway text-xl text-primary-txt">
               No movies found...
             </h2>
           </div>
