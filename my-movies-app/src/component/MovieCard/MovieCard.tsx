@@ -13,7 +13,7 @@ function MovieCard({ movie }: { movie: Movie }) {
 
   return (
     <Link to={`/movie?id=${id}`}>
-      <div className="group relative m-4 h-[440px] w-[280px] overflow-hidden rounded-xl border-none shadow-[0_13px_10px_-7px_rgba(0,0,0,0.3)] transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0,1)] hover:scale-105 hover:shadow-[0_30px_18px_-8px_rgba(0,0,0,0.5)] max-[400px]:m-2 max-[400px]:w-full">
+      <div className="group relative my-4 w-[200px] aspect-auto overflow-hidden rounded-xl border-none shadow-[0_13px_10px_-7px_rgba(0,0,0,0.3)] transition-all duration-300 ease-[cubic-bezier(0.175,0.885,0,1)] hover:scale-105 hover:shadow-[0_30px_18px_-8px_rgba(0,0,0,0.5)] max-[400px]:m-2 max-[400px]:w-full">
         <div className="absolute top-0 z-10 w-full p-4 text-primary-txt opacity-0 transition-opacity group-hover:opacity-100 bg-gradient-to-b from-black/80 to-transparent">
           <p className="font-semibold text-sm line-clamp-2">{title}</p>
         </div>

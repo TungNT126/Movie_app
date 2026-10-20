@@ -54,9 +54,12 @@ function MovieDetails() {
               <span className="font-extralight">{data?.runtime} mins</span>
             </div>
           </div>
-          <div className="flex flex-col items-start" style={{ width: 390 }}>
+          <div
+            className="flex flex-col text-left items-start"
+            style={{ width: 390 }}
+          >
             <span className="mb-2.5 font-light opacity-80">{`${data?.tagline?.toUpperCase()}`}</span>
-            <p className="text-left opacity-80">{data?.overview}</p>
+            <p className="opacity-80">{data?.overview}</p>
           </div>
         </div>
       </div>

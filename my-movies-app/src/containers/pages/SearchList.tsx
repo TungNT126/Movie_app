@@ -26,7 +26,8 @@ function SearchList() {
     setSearchValue(value || "");
   }
 
-  const { data: movies = [], isLoading } = usePopularMovieList();
+  const { data, isLoading } = usePopularMovieList(page);
+  const movies = data?.results ?? [];
 
   function handleSearch() {
     if (searchValue.trim() !== "") {
