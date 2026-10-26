@@ -1,8 +1,8 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { usePopularMovieList } from "../../services/api/movie";
+import { useTopRatedMovieList } from "../../services/api/movie";
 import MovieCard from "../../component/MovieCard/MovieCard";
 
-function FilmPage() {
+function TopRatedFilmPage() {
   const [searchParams] = useSearchParams();
   const requestedPage = Number(searchParams.get("page"));
   const page =
@@ -10,7 +10,7 @@ function FilmPage() {
 
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = usePopularMovieList(page);
+  const { data, isLoading, isError } = useTopRatedMovieList(page);
 
   const movies = data?.results ?? [];
   const totalPages = data?.total_pages || 0;
@@ -23,31 +23,31 @@ function FilmPage() {
   );
 
   function goToPage(targetPage: number) {
-    navigate(`/films?page=${targetPage}`);
+    navigate(`/films/top-rated?page=${targetPage}`);
   }
 
   return (
     <>
-      <div style={{ width: 950, margin: "0 auto" }}>
+      <div style={{ width: 950, margin: "0 auto", padding: "64px 0px" }}>
         <div className="pb-3 border-b border-b-white flex flex-row justify-between">
-          <span>POPULAR THIS WEEK</span>
+          <span>ALL TIME TOP RATED</span>
           <span
             className="relative text-primary-txt/80 hover:text-primary-txt no-underline cursor-pointer pr-2"
-            onClick={() => navigate("/films/top-rated")}
+            onClick={() => navigate("/films/popular")}
           >
-            Top rated
+            {">> Trending <<"}
           </span>
         </div>
         <div>
           {isLoading && (
             <div className="mt-12 text-center text-primary-txt text-xl">
-              Loading popular movies...
+              Loading top rated movies...
             </div>
           )}
 
           {isError && (
             <div className="mt-12 text-center text-red-400 text-lg">
-              Failed to load popular movies. Please check your network or API
+              Failed to load top rated movies. Please check your network or API
               token.
             </div>
           )}
@@ -72,7 +72,7 @@ function FilmPage() {
           {!isLoading && !isError && totalPages > 1 && (
             <nav
               className="mt-8 flex flex-wrap items-center justify-center gap-2"
-              aria-label="Popular movies pages"
+              aria-label="Top rated movies pages"
             >
               <button
                 type="button"
@@ -151,4 +151,4 @@ function FilmPage() {
   );
 }
 
-export default FilmPage;
+export default TopRatedFilmPage;

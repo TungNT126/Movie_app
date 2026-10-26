@@ -24,7 +24,7 @@ function LayoutShell({
               <DefaultHeader />
             </Suspense>
           ) : null}
-          <Container className="bg-bg-secondary py-16">{children}</Container>
+          <Container className="bg-bg-secondary">{children}</Container>
         </main>
       </div>
       {showFooter ? (

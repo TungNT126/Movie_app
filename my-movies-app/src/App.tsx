@@ -11,6 +11,7 @@ import FilmLayout from "./containers/layouts/FilmLayout";
 import WatchlistLayout from "./containers/layouts/WatchlistLayout";
 import { type RootState } from "./redux/store";
 import LoginLayout from "./containers/layouts/LoginLayout";
+import SearchLayout from "./containers/layouts/SearchLayout";
 
 function App() {
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
@@ -29,13 +30,14 @@ function App() {
               )
             }
           />
-          <Route path="login" element={<LoginLayout />} />
-          <Route path="home" element={<HomePageLayout />} />
+          <Route path="/login" element={<LoginLayout />} />
+          <Route path="/home" element={<HomePageLayout />} />
           {/* <Route path="search/:value" element={<SearchList />} /> */}
-          <Route path="about" element={<AboutLayout />} />
-          <Route path="films" element={<FilmLayout />} />
-          <Route path="watchlist" element={<WatchlistLayout />} />
-          <Route path="movie" element={<MovieDetailsLayout />} />
+          <Route path="/about" element={<AboutLayout />} />
+          <Route path="/films/*" element={<FilmLayout />} />
+          <Route path="/search/:searchField" element={<SearchLayout />} />
+          <Route path="/watchlist" element={<WatchlistLayout />} />
+          <Route path="/movie" element={<MovieDetailsLayout />} />
         </Route>
       </Routes>
     </BrowserRouter>

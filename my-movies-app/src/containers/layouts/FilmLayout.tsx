@@ -1,11 +1,16 @@
 import LayoutShell from "./shared/LayoutShell";
-import FilmPage from "../pages/FilmPage";
+import PopularFilmPage from "../pages/PopularFilmPage";
+import { Route, Routes } from "react-router-dom";
+import TopRatedFilmPage from "../pages/TopRatedFilmPage";
 
 function FilmLayout() {
   return (
     <>
       <LayoutShell>
-        <FilmPage />
+        <Routes>
+          <Route path="popular" element={<PopularFilmPage />} />
+          <Route path="top-rated" element={<TopRatedFilmPage />} />
+        </Routes>
       </LayoutShell>
     </>
   );

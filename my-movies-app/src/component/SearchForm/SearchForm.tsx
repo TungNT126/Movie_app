@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import searchIcon from "../../assets/icon/icons8-search.svg";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const schema = z.object({
   formValue: z.string(),
@@ -12,16 +13,17 @@ type IFormData = z.infer<typeof schema>;
 
 function SearchForm() {
   const [isFocus, setIsFocus] = useState(false);
+  const navigate = useNavigate();
 
-  const { control, handleSubmit, register } = useForm<IFormData>({
+  const { control, handleSubmit } = useForm<IFormData>({
     resolver: zodResolver(schema),
     defaultValues: {
       formValue: "",
     },
   });
 
-  function onSubmit() {
-    return "search...";
+  function onSubmit(data: IFormData) {
+    return navigate(`/search/${encodeURIComponent(data.formValue)}?page=1`);
   }
 
   return (
@@ -44,13 +46,14 @@ function SearchForm() {
                 <img
                   className="w-4 h-4 hover:cursor-pointer mx-1"
                   src={searchIcon}
-                  alt="search"
+                  alt=""
                   onClick={handleSubmit(onSubmit)}
                 />
                 <input
-                  className="w-100 outline-none border-none "
+                  className="w-100 outline-none border-none text-black"
                   type="text"
-                  {...register("formValue")}
+                  placeholder="search..."
+                  {...field}
                 />
               </div>
             )}

@@ -1,5 +1,6 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Button } from "react-bootstrap";
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
@@ -7,6 +8,7 @@ import { logout } from "../../redux/authSlice";
 import RegisterForm from "../../component/Modal/RegisterForm";
 import SearchForm from "../../component/SearchForm/SearchForm";
 import LoginForm from "../../component/Modal/LoginForm";
+import LogMovie from "../../component/Modal/LogMovie";
 
 const ChevronDownIcon = ({
   size = 12,
@@ -33,11 +35,14 @@ function DefaultHeader() {
   const [isRegister, setIsRegister] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSubNav, setIsOpenSubNav] = useState(false);
+  const [isOpenLogMovie, setIsOpenLogMovie] = useState(false);
   const location = useLocation();
   const path = location.pathname;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  console.log(50 / 12);
 
   const currentUser = useSelector((state: RootState) => state.auth.currentUser);
 
@@ -48,7 +53,7 @@ function DefaultHeader() {
 
   return (
     <nav
-      className={`flex w-full justify-between items-center pt-4 ${path === "/login" ? "absolute" : ""} pb-4`}
+      className={`flex w-full justify-between items-center pt-4 ${path === "/login" || path === "/movie" ? "absolute" : ""} pb-4`}
     >
       <section
         style={{
@@ -102,7 +107,7 @@ function DefaultHeader() {
             <div>
               <Link
                 className="text-primary-txt/80 no-underline hover:text-primary-txt"
-                to="/films"
+                to="/films/popular"
               >
                 FILMS
               </Link>
@@ -123,9 +128,16 @@ function DefaultHeader() {
                 ABOUT
               </Link>
             </div>
-
             <div>
               <SearchForm />
+            </div>
+            <div>
+              <Button
+                className="bg-primary-btn font-bold py-1 pl-1.5 pr-4 text-nowrap rounded-md text-white hover:opacity-80 cursor-pointer"
+                onClick={() => setIsOpenLogMovie(true)}
+              >
+                + LOG
+              </Button>
             </div>
           </div>
         ) : isLogin ? (
@@ -166,6 +178,12 @@ function DefaultHeader() {
           isOpen={isRegister}
           onClose={() => setIsRegister(false)}
         />
+        {isOpenLogMovie && (
+          <LogMovie
+            isOpen={isOpenLogMovie}
+            onClose={() => setIsOpenLogMovie(false)}
+          />
+        )}
       </section>
     </nav>
   );
