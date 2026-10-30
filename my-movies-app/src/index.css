@@ -4,13 +4,14 @@
 
 
 @theme {
-  --font-roboto: "Roboto Slab", serif;
+  --font-roboto: "Roboto Slab", sans-serif;
   --font-raleway: "Raleway", sans-serif;
   --color-primary-txt: #d8e0e8;
   --color-bg-primary: #14181c;
   --color-bg-secondary: #2c3440;
   --color-modal-bg: #445566;
-  --color-modal-text: #99aabb;
+  --color-modal-text: #9ab;
+  --color-bg-list: #678;
   --color-modal-input: #ccddee;
   --color-primary-btn: #00ac1c;
 }
@@ -27,6 +28,7 @@
     margin: 0;
     font-family: var(--font-roboto);
     background-color: var(--color-bg-primary);
+    color: var(--color-primary-txt);
   }
 
   #root {

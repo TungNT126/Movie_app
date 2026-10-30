@@ -34,7 +34,14 @@ function SearchList() {
 
   return (
     <>
-      <div style={{ width: 950, margin: "0 auto", paddingTop: 64 }}>
+      <div
+        style={{
+          width: 950,
+          margin: "0 auto",
+          paddingTop: 64,
+          paddingBottom: 64,
+        }}
+      >
         <div className="py-2 border-b text-left">
           <span>{`SHOWING MATCHES FOR "${value.toUpperCase()}"`}</span>
         </div>

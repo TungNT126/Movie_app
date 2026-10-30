@@ -12,7 +12,7 @@ function LoginPage() {
   return (
     <>
       <div
-        className="h-screen w-[100%] flex flex-col justify-end items-center"
+        className="h-screen w-full flex flex-col justify-end items-center"
         style={{
           backgroundImage: `url(${BackDrop})`,
           backgroundPosition: "center",
@@ -27,8 +27,15 @@ function LoginPage() {
         // spread (độ lan rộng)
         // color
       >
-        <div style={{ transform: "translateY(80%)" }}>
-          <div className="text-[36px] text-white relative">
+        <div
+          style={{
+            transform: "translateY(80%)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
+          <div className="text-[36px] text-white relative text-center">
             <p>Track films you’ve watched.</p>
             <p>Save those you want to see.</p>
             <p>Tell your friends what’s good.</p>
@@ -42,6 +49,7 @@ function LoginPage() {
           </button>
         </div>
       </div>
+      <div className="h-100 w-full">COMING SOON...!</div>
       <RegisterForm
         isOpen={isSignUpOpen}
         onClose={() => setIsSignUpOpen(false)}

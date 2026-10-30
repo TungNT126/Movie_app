@@ -1,3 +1,5 @@
+import type { Genre } from "./Genre";
+
 export type Movie = {
   id: number;
   original_title: string;
@@ -14,10 +16,7 @@ export type Movie = {
   media_type: string;
   original_language: string;
   genre_ids: number[];
-  genres: {
-    id: string;
-    name: string;
-  };
+  genres: Genre
 };
 
 export type MoviePage = {

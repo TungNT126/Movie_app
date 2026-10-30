@@ -2,3 +2,15 @@
     margin-left: 120px;
     margin-right: 120px;
 }
+
+.active {
+    opacity: 1;
+    color: var(--color-primary-txt);
+}
+
+
+/* Màu sao đã chọn */
+.ant-rate-star:not(.ant-rate-star-full),
+.ant-rate-star.ant-rate-star-full {
+  color: #00e054;
+}

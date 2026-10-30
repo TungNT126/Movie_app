@@ -15,12 +15,14 @@ function DefaultFooter() {
             <li>API</li>
             <li>Contact</li>
           </ul>
-          <span className="opacity-50 font-light">
-            © MovieCenter Limited. Made by fans in Hanoi, Vietnam. Film data
-            from{" "}
+          <span className="text-primary-txt/50 font-light">
+            © MovieCenter Limited. Made by a cinephile in Hanoi, Vietnam. Film
+            data from{" "}
             <a
               href="https://www.themoviedb.org/"
-              className="underline hover:opacity-100"
+              className="underline hover:text-primary-txt"
+              rel="noopener noreferrer"
+              target="_blank"
             >
               TMDB
             </a>

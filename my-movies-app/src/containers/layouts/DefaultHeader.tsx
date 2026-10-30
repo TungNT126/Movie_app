@@ -1,6 +1,8 @@
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import SearchIcon from "../../assets/icon/search.svg";
+import CancelIcon from "../../assets/icon/cancel.svg";
 
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../../redux/store";
@@ -8,7 +10,7 @@ import { logout } from "../../redux/authSlice";
 import RegisterForm from "../../component/Modal/RegisterForm";
 import SearchForm from "../../component/SearchForm/SearchForm";
 import LoginForm from "../../component/Modal/LoginForm";
-import LogMovie from "../../component/Modal/LogMovie";
+import FindMovie from "../../component/Modal/FindMovie";
 
 const ChevronDownIcon = ({
   size = 12,
@@ -36,6 +38,7 @@ function DefaultHeader() {
   const [isLogin, setIsLogin] = useState(false);
   const [isOpenSubNav, setIsOpenSubNav] = useState(false);
   const [isOpenLogMovie, setIsOpenLogMovie] = useState(false);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
   const location = useLocation();
   const path = location.pathname;
 
@@ -65,7 +68,7 @@ function DefaultHeader() {
         }}
       >
         <h1
-          className="w-fit text-5xl tracking-[0.9px] text-primary-txt max-[400px]:text-4xl cursor-pointer"
+          className="w-fit text-3xl tracking-[0.9px] text-primary-txt max-[400px]:text-4xl cursor-pointer text-nowrap"
           onClick={() => navigate("/home")}
         >
           Movies Center
@@ -90,7 +93,7 @@ function DefaultHeader() {
               {isOpenSubNav && (
                 <>
                   <div className="absolute h-3 w-full"></div>
-                  <ul className="absolute top-full left-0 mt-1 bg-modal-text rounded shadow-xl/30 min-w-[120px] z-50">
+                  <ul className="absolute top-full left-0 mt-1 bg-modal-text rounded shadow-xl/30 min-w-30 z-50">
                     <li className="text-bg-primary hover:text-white px-3 py-1.5 hover:bg-modal-bg hover:cursor-pointer rounded-t text-left">
                       Profile
                     </li>
@@ -105,39 +108,58 @@ function DefaultHeader() {
               )}
             </div>
             <div>
-              <Link
+              <NavLink
                 className="text-primary-txt/80 no-underline hover:text-primary-txt"
                 to="/films/popular"
               >
                 FILMS
-              </Link>
+              </NavLink>
             </div>
             <div>
-              <Link
+              <NavLink
                 className="text-primary-txt/80 hover:text-primary-txt"
                 to="/watchlist"
               >
                 WATCHLIST
-              </Link>
+              </NavLink>
             </div>
             <div>
-              <Link
+              <NavLink
                 className="text-primary-txt/80 no-underline hover:text-primary-txt"
                 to="/about"
               >
                 ABOUT
-              </Link>
+              </NavLink>
             </div>
-            <div>
-              <SearchForm />
-            </div>
-            <div>
-              <Button
-                className="bg-primary-btn font-bold py-1 pl-1.5 pr-4 text-nowrap rounded-md text-white hover:opacity-80 cursor-pointer"
-                onClick={() => setIsOpenLogMovie(true)}
-              >
-                + LOG
-              </Button>
+            <div className="cursor-pointer">
+              {isOpenSearch === true ? (
+                <div className="flex flex-row items-center gap-2">
+                  <img
+                    className="w-4.5 h-4"
+                    src={CancelIcon}
+                    alt="cancel-icon"
+                    onClick={() => setIsOpenSearch(false)}
+                  />
+                  <SearchForm />
+                </div>
+              ) : (
+                <div className="flex flex-row items-center gap-2">
+                  <img
+                    className="w-4.5 h-4"
+                    src={SearchIcon}
+                    alt="search-icon"
+                    onClick={() => setIsOpenSearch(true)}
+                  />
+                  <div>
+                    <Button
+                      className="bg-primary-btn font-bold py-1 pl-1.5 pr-4 text-nowrap rounded-md text-white hover:opacity-80 cursor-pointer"
+                      onClick={() => setIsOpenLogMovie(true)}
+                    >
+                      + LOG
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         ) : isLogin ? (
@@ -161,12 +183,12 @@ function DefaultHeader() {
               </span>
             </div>
             <div>
-              <Link
+              <NavLink
                 className="text-primary-txt/80 cursor-pointer hover:text-primary-txt"
                 to="/about"
               >
                 About
-              </Link>
+              </NavLink>
             </div>
             <div>
               <SearchForm />
@@ -179,7 +201,7 @@ function DefaultHeader() {
           onClose={() => setIsRegister(false)}
         />
         {isOpenLogMovie && (
-          <LogMovie
+          <FindMovie
             isOpen={isOpenLogMovie}
             onClose={() => setIsOpenLogMovie(false)}
           />

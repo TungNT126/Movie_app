@@ -8,9 +8,9 @@ import { login } from "../../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const inputClass =
-  "rounded border border-gray-300 px-2 py-1 bg-modal-input text-black";
+  "rounded border border-gray-300 outline-none px-2 py-1 bg-modal-input text-black";
 const inputInvalidClass =
-  "rounded border border-red-500 px-2 py-1 outline-none bg-modal-input text-black";
+  "rounded border border-red-500 outline-none px-2 py-1 outline-none bg-modal-input text-black";
 const errorMessageClass = "min-h-4 text-xs leading-4 text-red-500";
 
 const schema = z.object({

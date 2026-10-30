@@ -1,11 +1,14 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMovieDetail } from "../../services/api/movie";
 import { TMDB_IMAGE_URL } from "../../env";
+import { useState } from "react";
+import LogMovie from "../../component/Modal/LogMovie";
 
 const btnClass =
   "h-10 w-[100px] cursor-pointer rounded-lg bg-[rgb(0,119,255)] text-white hover:bg-[rgb(0,119,255)]/80 hover:text-white/80";
 
 function MovieDetails() {
+  const [isLog, setIsLog] = useState(false);
   const [searchParams] = useSearchParams();
   const movieId = searchParams.get("id");
   const navigate = useNavigate();
@@ -76,6 +79,14 @@ function MovieDetails() {
               <span className="mb-2.5 font-light opacity-80">{`${data?.tagline?.toUpperCase()}`}</span>
               <p className="opacity-80">{data?.overview}</p>
             </div>
+            <div className="flex justify-start mt-5">
+              <button
+                className="bg-primary-btn text-white rounded-sm py-1 px-4 cursor-pointer hover:opacity-70"
+                onClick={() => setIsLog(true)}
+              >
+                + Log
+              </button>
+            </div>
           </div>
         </div>
         <button
@@ -88,6 +99,9 @@ function MovieDetails() {
           Go back
         </button>
       </div>
+      {isLog && data && (
+        <LogMovie isOpen={isLog} onClose={() => setIsLog(false)} data={data} />
+      )}
     </>
   );
 }
