@@ -1,5 +1,5 @@
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
-import { FetchAnything, FetchMovieById, FetchMovieByTitle, FetchMovieGenres, FetchPopularMovie, FetchTopRatedMovie } from "../queries";
+import { FetchAnything, FetchMovieByFilter, FetchMovieById, FetchMovieByTitle, FetchMovieGenres, FetchPopularMovie, FetchTopRatedMovie } from "../queries";
 
 export function usePopularMovieList(page: number) {
     return useQuery({
@@ -46,6 +46,14 @@ export function useGenreList() {
     return useQuery({
         queryKey: ['genre_list'],
         queryFn: () => FetchMovieGenres(),
+        staleTime: 15*60*1000
+    })
+}
+
+export function useMovieFilter(value: number, page: number) {
+    return useQuery({
+        queryKey: ['movie_filter', value, page],
+        queryFn: () => FetchMovieByFilter(value, page),
         staleTime: 15*60*1000
     })
 }

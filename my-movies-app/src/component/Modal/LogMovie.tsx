@@ -55,11 +55,21 @@ function LogMovie({ isOpen, onClose, data }: LogMovieProps) {
     >
       <div>
         <form className="rounded-lg bg-modal-bg w-200">
-          <div className="flex flex-row justify-between items-center text-white text-2xl py-4 px-5 border-b border-b-bg-primary">
+          <div className="flex flex-row justify-between items-center text-white py-4 px-5 border-b border-b-bg-primary">
             <div>
-              <span className="font-bold">I watched...</span>
+              <button
+                className="text-white bg-bg-list py-1 pl-4 pr-2 rounded-sm cursor-pointer hover:opacity-85 back-btn outline-1"
+                onClick={() => {
+                  onClose();
+                  reset();
+                }}
+              >
+                BACK
+              </button>
+
+              <span className="font-bold text-2xl ml-5">I watched...</span>
             </div>
-            <span
+            {/* <span
               className="cursor-pointer opacity-70 hover:opacity-100"
               onClick={() => {
                 onClose();
@@ -67,7 +77,7 @@ function LogMovie({ isOpen, onClose, data }: LogMovieProps) {
               }}
             >
               x
-            </span>
+            </span> */}
           </div>
           <div className="p-5">
             <div className="p-5">

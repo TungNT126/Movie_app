@@ -1,14 +1,21 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { usePopularMovieList } from "../../services/api/movie";
+import { useGenreList, usePopularMovieList } from "../../services/api/movie";
 import MovieCard from "../../component/MovieCard/MovieCard";
+import { useState } from "react";
+import { IconDropDown } from "../../utils/constant";
 
 function PopularFilmPage() {
+  const [genreSelected, setGenreSelected] = useState<number>(0);
+  const [selectedGenreName, setSelectedGenreName] = useState("");
+  const [isGenreMenuOpen, setIsGenreMenuOpen] = useState(false);
   const [searchParams] = useSearchParams();
   const requestedPage = Number(searchParams.get("page"));
   const page =
     Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
 
   const navigate = useNavigate();
+
+  const { data: genreList } = useGenreList();
 
   const { data, isLoading, isError } = usePopularMovieList(page);
 
@@ -37,6 +44,51 @@ function PopularFilmPage() {
           >
             {">> Top rated <<"}
           </span>
+        </div>
+        <div>
+          <div>
+            <span>BROWSE BY:</span>
+            <div className="relative ml-5 inline-block">
+              <button
+                className="rounded min-w-20 p-2 text-left outline-none cursor-pointer"
+                onClick={() => setIsGenreMenuOpen((isOpen) => !isOpen)}
+              >
+                {selectedGenreName ? `${selectedGenreName}` : "All genres"}
+              </button>
+              <IconDropDown className="inline" />
+              {isGenreMenuOpen && (
+                <div
+                  className="h-100 absolute z-100 rounded bg-bg-list overflow-y-auto scrollbar-thumb-bg-primary scrollbar-thin"
+                  style={{
+                    boxShadow: "2px 5px 5px 0 rgb(0, 0, 0)",
+                  }}
+                  role="options"
+                  aria-selected={selectedGenreName === "All genres"}
+                >
+                  <button className="h-10 w-full p-3 text-left leading-2 hover:bg-primary-btn cursor-pointer">
+                    All genres
+                  </button>
+                  {genreList?.map((genre) => (
+                    <button
+                      key={genre.id}
+                      type="button"
+                      role="option"
+                      onClick={() => {
+                        setGenreSelected(genre.id);
+                        setIsGenreMenuOpen(false);
+                        setSelectedGenreName(genre.name);
+                        navigate(`/films/genres/${genre.name}?page=1`);
+                      }}
+                      className="h-10 w-full p-3 text-left leading-2 text-nowrap hover:bg-primary-btn cursor-pointer"
+                      aria-selected={selectedGenreName === genre.name}
+                    >
+                      {genre.name}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
         <div>
           {isLoading && (

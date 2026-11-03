@@ -28,3 +28,7 @@ export async function FetchMovieGenres(): Promise<Genre[]> {
   const response = await apiClient<{ genres: Genre[] }>(`/genre/movie/list`);
   return response.genres;
 }
+
+export async function FetchMovieByFilter(value: number, page: number): Promise<MoviePage> {
+  return apiClient<MoviePage>(`/discover/movie?with_genres=${value}&page=${page}`);
+}
