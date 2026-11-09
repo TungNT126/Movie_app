@@ -58,7 +58,7 @@ function LogMovie({ isOpen, onClose, data }: LogMovieProps) {
           <div className="flex flex-row justify-between items-center text-white py-4 px-5 border-b border-b-bg-primary">
             <div>
               <button
-                className="text-white bg-bg-list py-1 pl-4 pr-2 rounded-sm cursor-pointer hover:opacity-85 back-btn outline-1"
+                className="text-white bg-bg-list py-1 pl-4 pr-2 cursor-pointer hover:opacity-85 back-btn outline-1"
                 onClick={() => {
                   onClose();
                   reset();

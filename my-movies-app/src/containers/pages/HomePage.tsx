@@ -26,34 +26,38 @@ function HomePage() {
             . Let's review some movie today...{" "}
           </h1>
         </div>
-        <div className="pb-3 border-b border-b-white flex flex-row justify-between">
-          <span>POPULAR THIS WEEK</span>
-          <Link
-            to="/films/popular?page=1"
-            className="opacity-50 hover:opacity-100 font-light"
-          >
-            MORE
-          </Link>
-        </div>
+        {/* Popular movies */}
         <div>
-          {!isLoading && !isError && (
-            <div className="mt-8">
-              {movies && movies.length > 0 ? (
-                <div className="flex flex-row gap-x-5 overflow-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-bg-primary">
-                  {movies.map((movie) => (
-                    <MovieCard key={movie.id} movie={movie} />
-                  ))}
-                </div>
-              ) : (
-                <div className="mt-12 flex w-full items-center justify-center">
-                  <h2 className="text-xl text-primary-txt">
-                    No movies found...
-                  </h2>
-                </div>
-              )}
-            </div>
-          )}
+          <div className="pb-3 border-b border-b-white flex flex-row justify-between">
+            <span>POPULAR THIS WEEK</span>
+            <Link
+              to="/films/popular?page=1"
+              className="opacity-50 hover:opacity-100 font-light"
+            >
+              MORE
+            </Link>
+          </div>
+          <div>
+            {!isLoading && !isError && (
+              <div className="mt-8">
+                {movies && movies.length > 0 ? (
+                  <div className="flex flex-row gap-x-5 overflow-scroll overflow-y-hidden scrollbar-thin scrollbar-thumb-primary-txt">
+                    {movies.map((movie) => (
+                      <MovieCard key={movie.id} movie={movie} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-12 flex w-full items-center justify-center">
+                    <h2 className="text-xl text-primary-txt">
+                      No movies found...
+                    </h2>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
+        {/* ============ */}
       </div>
     </>
   );

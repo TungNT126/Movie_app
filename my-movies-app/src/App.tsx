@@ -32,7 +32,6 @@ function App() {
           />
           <Route path="/login" element={<LoginLayout />} />
           <Route path="/home" element={<HomePageLayout />} />
-          {/* <Route path="search/:value" element={<SearchList />} /> */}
           <Route path="/about" element={<AboutLayout />} />
           <Route path="/films/*" element={<FilmLayout />} />
           <Route path="/search/:searchField" element={<SearchLayout />} />

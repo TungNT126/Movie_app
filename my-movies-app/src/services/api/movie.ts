@@ -54,6 +54,7 @@ export function useMovieFilter(value: number, page: number) {
     return useQuery({
         queryKey: ['movie_filter', value, page],
         queryFn: () => FetchMovieByFilter(value, page),
+        enabled: value > 0,
         staleTime: 15*60*1000
     })
 }

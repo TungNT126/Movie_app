@@ -1,14 +1,13 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useGenreList, useMovieFilter } from "../../services/api/movie";
 import MovieCard from "../../component/MovieCard/MovieCard";
 import { useState } from "react";
 import { IconDropDown } from "../../utils/constant";
 
 function MovieGenrePage() {
+  const { genreId: genreParam } = useParams<{ genreId: string }>();
   const [searchParams] = useSearchParams();
   const requestedPage = Number(searchParams.get("page"));
-  const [genreSelected, setGenreSelected] = useState<number>(12);
-  const [selectedGenreName, setSelectedGenreName] = useState("All genres");
   const [isGenreMenuOpen, setIsGenreMenuOpen] = useState(false);
   const page =
     Number.isInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
@@ -16,6 +15,14 @@ function MovieGenrePage() {
   const navigate = useNavigate();
 
   const { data: genreList } = useGenreList();
+
+  const selectedGenre = genreList?.find(
+    (genre) =>
+      String(genre.id) === genreParam ||
+      genre.name.toLowerCase() === genreParam?.toLowerCase(),
+  );
+  const genreSelected = selectedGenre?.id ?? 0;
+  const selectedGenreName = selectedGenre?.name ?? "All genres";
 
   const { data, isLoading, isError } = useMovieFilter(genreSelected, page);
 
@@ -33,13 +40,11 @@ function MovieGenrePage() {
     navigate(`/films/genres/${value}?page=${targetPage}`);
   }
 
-  console.log(genreSelected);
-
   return (
     <>
       <div style={{ width: 950, margin: "0 auto", padding: "64px 0px" }}>
         <div>
-          <span>BROWSE BY:</span>
+          <span>BROWSE BY</span>
           <div className="relative ml-5 inline-block">
             <button
               type="button"
@@ -48,7 +53,7 @@ function MovieGenrePage() {
               aria-expanded={isGenreMenuOpen}
               onClick={() => setIsGenreMenuOpen((isOpen) => !isOpen)}
             >
-              {selectedGenreName}
+              {selectedGenreName ? `${selectedGenreName}` : "All genres"}
             </button>
             <IconDropDown className="inline" />
             {isGenreMenuOpen && (
@@ -80,10 +85,8 @@ function MovieGenrePage() {
                     role="option"
                     aria-selected={selectedGenreName === genre.name}
                     onClick={() => {
-                      setGenreSelected(genre.id);
-                      setSelectedGenreName(genre.name);
                       setIsGenreMenuOpen(false);
-                      navigate(`/films/genres/${genre.name}?page=1`);
+                      navigate(`/films/genres/${genre.id}?page=1`);
                     }}
                   >
                     {genre.name}

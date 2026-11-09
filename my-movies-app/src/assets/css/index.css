@@ -15,6 +15,7 @@
   color: #00e054;
 }
 
+/* Button mũi tên */
 .back-btn {
     clip-path: polygon(12px 0%, 100% 0%, 100% 100%, 12px 100%, 0% 50%);
 }

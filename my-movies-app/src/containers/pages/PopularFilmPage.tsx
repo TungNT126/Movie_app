@@ -5,7 +5,6 @@ import { useState } from "react";
 import { IconDropDown } from "../../utils/constant";
 
 function PopularFilmPage() {
-  const [genreSelected, setGenreSelected] = useState<number>(0);
   const [selectedGenreName, setSelectedGenreName] = useState("");
   const [isGenreMenuOpen, setIsGenreMenuOpen] = useState(false);
   const [searchParams] = useSearchParams();
@@ -74,10 +73,9 @@ function PopularFilmPage() {
                       type="button"
                       role="option"
                       onClick={() => {
-                        setGenreSelected(genre.id);
                         setIsGenreMenuOpen(false);
                         setSelectedGenreName(genre.name);
-                        navigate(`/films/genres/${genre.name}?page=1`);
+                        navigate(`/films/genres/${genre.id}?page=1`);
                       }}
                       className="h-10 w-full p-3 text-left leading-2 text-nowrap hover:bg-primary-btn cursor-pointer"
                       aria-selected={selectedGenreName === genre.name}

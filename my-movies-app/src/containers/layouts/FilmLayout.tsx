@@ -14,7 +14,7 @@ function FilmLayout() {
           <Routes>
             <Route path="popular" element={<PopularFilmPage />} />
             <Route path="top-rated" element={<TopRatedFilmPage />} />
-            <Route path="genres/*" element={<MovieGenrePage />} />
+            <Route path="genres/:genreId" element={<MovieGenrePage />} />
           </Routes>
         </Suspense>
       </LayoutShell>
